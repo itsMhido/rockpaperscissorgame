@@ -30,6 +30,15 @@ const typing = {'rock': 'scissor', 'scissor': 'paper', 'paper': 'rock'}
 
 const playGame = function(playerMove) {
     const move = computerMove()
+    const random = Math.random()
+    if (random < 0.25) {
+        move = playerMove
+    }
+    else {
+        if (random < 0.75) {
+            move = typing[typing[playerMove]]
+        }
+    }
     moveImage.innerHTML = "You " + toImage(playerMove) +" "+ toImage(move) + " compuetr"
     console.log(move)
     if (typing[playerMove] == move) {
