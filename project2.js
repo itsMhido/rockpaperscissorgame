@@ -54,7 +54,7 @@ const playGame = function(playerMove, mode) {
     else {
         let move;
         const random = Math.random()
-        if (random < 3/4) {
+        if (random < 1/2) {
             move = typing[typing[playerMove]]
         }
         else {
