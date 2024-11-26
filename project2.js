@@ -1,4 +1,3 @@
-
 const computerMove = function()
 {
     const random = Math.random()
@@ -28,35 +27,58 @@ const moveImage = document.querySelector(".moveimage")
 
 const typing = {'rock': 'scissor', 'scissor': 'paper', 'paper': 'rock'}
 
-const playGame = function(playerMove) {
-    const move = computerMove()
-    const random = Math.random()
-    if (random < 0.25) {
-        move = playerMove
-    }
-    else {
-        if (random < 0.75) {
-            move = typing[typing[playerMove]]
-        }
-    }
-    moveImage.innerHTML = "You " + toImage(playerMove) +" "+ toImage(move) + " compuetr"
-    console.log(move)
-    if (typing[playerMove] == move) {
-        score.wins++;
-        outcome.textContent = "you won :D"
-    }
-    else {
-        if (playerMove == move) {
-            score.ties ++;
-            outcome.textContent = "it was a tie :/"
+const playGame = function(playerMove, mode) {
+    if (mode == 1) {
+        let move;
+        move = computerMove()
+    
+        moveImage.innerHTML = "You " + toImage(playerMove) +" "+ toImage(move) + " compuetr"
+        console.log(move)
+        if (typing[playerMove] == move) {
+            score.wins++;
+            outcome.textContent = "you won :D"
         }
         else {
-            score.losses ++;
-            outcome.textContent = "you lost :("
+            if (playerMove == move) {
+                score.ties ++;
+                outcome.textContent = "it was a tie :/"
+            }
+            else {
+                score.losses ++;
+                outcome.textContent = "you lost :("
+            }
         }
+        console.log(score)
+        scoreText.textContent = "wins : " + score.wins + ", losses: " + score.losses + ", ties :" + score.ties
     }
-    console.log(score)
-    scoreText.textContent = "wins : " + score.wins + ", losses: " + score.losses + ", ties :" + score.ties
+    else {
+        let move;
+        const random = Math.random()
+        if (random < 3/4) {
+            move = typing[typing[playerMove]]
+        }
+        else {
+            move = computerMove()
+        }
+        moveImage.innerHTML = "You " + toImage(playerMove) +" "+ toImage(move) + " compuetr"
+        console.log(move)
+        if (typing[playerMove] == move) {
+            score.wins++;
+            outcome.textContent = "you won :D"
+        }
+        else {
+            if (playerMove == move) {
+                score.ties ++;
+                outcome.textContent = "it was a tie :/"
+            }
+            else {
+                score.losses ++;
+                outcome.textContent = "you lost :("
+            }
+        }
+        console.log(score)
+        scoreText.textContent = "wins : " + score.wins + ", losses: " + score.losses + ", ties :" + score.ties
+    }
 }
 
 const resetScore = function() {
@@ -73,7 +95,7 @@ const autoPlay = function() {
     auto = !auto
     if (auto) {
         id = setInterval(() => {
-            playGame(computerMove())
+            playGame(computerMove(), 1)
         },  1);
     }
    else {
